@@ -1,3 +1,17 @@
+terraform {
+  required_providers {
+    docker = {
+      source = "kreuzwerker/docker"
+      version = "3.6.2"
+    }
+  }
+}
+
+provider "docker" {
+    host = "npipe:////./pipe/docker_engine"
+
+}
+
 resource "docker_image" "nginx_custom" {
   name = "nginx:customimage"
 
