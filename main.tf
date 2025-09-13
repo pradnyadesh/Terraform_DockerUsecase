@@ -1,10 +1,15 @@
-resource "docker_image" "nginx" {
-  name="nginx:alpine"
+resource "docker_image" "nginx_custom" {
+  name = "nginx:customimage"
+
+  build {
+    context    = "${path.module}/App"
+    dockerfile = "${path.module}/App/Dockerfile"
+  }
 }
 
 resource "docker_container" "nginx_cont" {
-  image = docker_image.nginx
-  name =  "nginx_container"
+  name  = "nginx_container"
+  image = docker_image.nginx_custom.name
   ports {
     internal = 80
     external = 80
